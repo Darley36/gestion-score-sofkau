@@ -7,7 +7,11 @@
 #
 # Then, build the image with:
 #
+<<<<<<< HEAD
 # docker build -f src/main/docker/Dockerfile.legacy-jar -t darley36/demo-cqrs .
+=======
+# docker build -f src/main/docker/Dockerfile.legacy-jar -t ralzate/demo-cqrs .
+>>>>>>> 8c61e30c8e1ce2eee086e4e589559d7d481d4707
 #
 # Then run the container using:
 #
