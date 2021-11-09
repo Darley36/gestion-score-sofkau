@@ -1,5 +1,7 @@
 package co.com.sofka.wsscore.infra.materialize;
 
+import co.com.sofka.wsscore.domain.game.event.HorseAssigned;
+import co.com.sofka.wsscore.domain.game.event.TrackCreated;
 import co.com.sofka.wsscore.domain.program.event.CourseAssigned;
 import co.com.sofka.wsscore.domain.program.event.ProgramCreated;
 import co.com.sofka.wsscore.domain.program.event.ScoreAssigned;
@@ -32,6 +34,33 @@ public class ProgramHandle {
         mongoClient.getDatabase("queries")
                 .getCollection("program")
                 .insertOne(new Document(document));
+    }
+
+    @ConsumeEvent(value = "sofkau.program.trackcreated", blocking = true)
+    void consumeProgramCreated(TrackCreated event) {
+        Map<String, Object> document = new HashMap<>();
+        document.put("_id", event.getAggregateId());
+        document.put("name", event.getName());
+        mongoClient.getDatabase("queries")
+                .getCollection("program")
+                .insertOne(new Document(document));
+    }
+
+    @ConsumeEvent(value = "sofkau.program.horseassigned", blocking = true)
+    void consumeHorseAssigned(HorseAssigned event) {
+        BasicDBObject document = new BasicDBObject();
+        document.put("horses."+event.getHorsesId()+".name",event.getName());
+        event.getHorses().forEach(horses -> {
+            var key = "horses."+event.getHorsesId()+".horses."+Math.abs(horses.hashCode());
+            document.put(key+".name", horses);
+        });
+
+        BasicDBObject updateObject = new BasicDBObject();
+        updateObject.put("$set", document);
+
+        mongoClient.getDatabase("queries")
+                .getCollection("program")
+                .updateOne( Filters.eq("_id", event.getAggregateId()), updateObject);
     }
 
     @ConsumeEvent(value = "sofkau.program.courseassigned", blocking = true)
