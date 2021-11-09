@@ -18,8 +18,13 @@ public abstract class AggregateRoot {
     }
 
     protected ChangeEventSubscriber.ChangeApply appendChange(DomainEvent event) {
+        return appendChange(event, id);
+    }
+
+    protected ChangeEventSubscriber.ChangeApply appendChange(DomainEvent event, String correlationId) {
         event.setAggregateId(id);
         System.out.println("domain 2 "+event);
+        event.setCorrelationId(correlationId);
         return changeEventSubscriber.appendChange(event);
     }
 

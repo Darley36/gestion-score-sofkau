@@ -2,7 +2,6 @@ package co.com.sofka.wsscore.domain.program;
 
 import co.com.sofka.wsscore.domain.generic.AggregateRoot;
 import co.com.sofka.wsscore.domain.generic.DomainEvent;
-import co.com.sofka.wsscore.domain.generic.EventChange;
 import co.com.sofka.wsscore.domain.program.event.CourseAssigned;
 import co.com.sofka.wsscore.domain.program.event.ProgramCreated;
 import co.com.sofka.wsscore.domain.program.event.ScoreAssigned;
@@ -10,14 +9,15 @@ import co.com.sofka.wsscore.domain.program.event.ScoreAssigned;
 import java.util.*;
 
 
-public class Program extends AggregateRoot implements EventChange {
-    private Map<String, Course> courses;
-    private Map<String, Score> scores;
-    private String name;
+public class Program extends AggregateRoot  {
+    protected Map<String, Course> courses;
+    protected Map<String, Score> scores;
+    protected String name;
 
     public Program(String programId, String name){
         super(programId);
         System.out.println("domain 13");
+        subscribe(new ProgramEventChange(this));
         appendChange(new ProgramCreated(name)).apply();
     }
 
@@ -35,26 +35,9 @@ public class Program extends AggregateRoot implements EventChange {
 
     private Program(String id){
         super(id);
-        System.out.println("domain 16");
-        subscribe(this);
-        listener((ProgramCreated event)-> {
-          this.name = event.getName();
-          this.scores = new HashMap<>();
-          this.courses =  new HashMap<>();
-        });
-        listener((CourseAssigned event) -> {
-            var course =  new Course(event.getCourseId(), event.getName());
-            event.getCategories().forEach(course::addCategory);
-            courses.put(event.getCourseId(), course);
-        });
-        listener((ScoreAssigned event) -> {
-            var scoreId = event.getCourseId()+event.getCategory()+event.getUser();
-            this.scores.put(scoreId, new Score(
-                    scoreId, event.getUser(), event.getValue(), event.getDate()
-            ));
-        });
-
+        subscribe(new ProgramEventChange(this));
     }
+
 
     public static Program from(String id, List<DomainEvent> events){
         System.out.println("domain 17 "+events);

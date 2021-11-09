@@ -19,12 +19,13 @@ public class AddCourseUseCase implements Function<AddCourseCommand, List<DomainE
     }
 
     @Override
-    public List<DomainEvent> apply(AddCourseCommand addCourseCommand) {
-        System.out.println("Usecase 1 "+ addCourseCommand);
-        var program = Program.from(
-                addCourseCommand.getProgramId(), repository.getEventsBy("program", addCourseCommand.getProgramId())
-        );
-        program.addCourse(addCourseCommand.getCourseId(), addCourseCommand.getName(), addCourseCommand.getCategories());
+
+    public List<DomainEvent> apply(AddCourseCommand command) {
+        System.out.println("Usecase 1 "+ command);
+        var events = repository.getEventsBy("program", command.getProgramId());
+        var program = Program.from(command.getProgramId(), events);
+
+        program.addCourse(command.getCourseId(), command.getName(), command.getCategories());
         return program.getUncommittedChanges();
     }
 }
