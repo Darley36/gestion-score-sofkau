@@ -4,8 +4,6 @@ import co.com.sofka.wsscore.domain.game.Track;
 import co.com.sofka.wsscore.domain.game.command.AddHorseCommand;
 import co.com.sofka.wsscore.domain.generic.DomainEvent;
 import co.com.sofka.wsscore.domain.generic.EventStoreRepository;
-import co.com.sofka.wsscore.domain.program.Program;
-import co.com.sofka.wsscore.domain.program.command.AddCourseCommand;
 
 import javax.enterprise.context.Dependent;
 import java.util.List;
