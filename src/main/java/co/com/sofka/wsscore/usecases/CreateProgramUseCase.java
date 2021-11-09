@@ -12,6 +12,7 @@ import java.util.function.Function;
 public class CreateProgramUseCase  implements Function<CreateProgramCommand, List<DomainEvent>> {
     @Override
     public List<DomainEvent> apply(CreateProgramCommand command) {
+        System.out.println("usecase 2 "+command);
         var program = new Program(command.getProgramId(), command.getName());
         return program.getUncommittedChanges();
     }

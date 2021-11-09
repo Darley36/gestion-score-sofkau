@@ -35,7 +35,6 @@ public class CommandController {
         return Response.ok().build();
     }
 
-
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/addCourse")

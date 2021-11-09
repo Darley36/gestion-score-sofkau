@@ -14,11 +14,14 @@ public class AssignScoreUseCaseHandle extends UseCaseHandle {
 
     public AssignScoreUseCaseHandle(ExtractScoreUseCase extractScoreUseCase) {
         this.extractScoreUseCase = extractScoreUseCase;
+        System.out.println("infra 23" + extractScoreUseCase);
     }
 
     @ConsumeEvent(value = "sofkau.program.assignscore")
     void consumeBlocking(AssignScoreCommand command) {
         var events = extractScoreUseCase.apply(command);
+        System.out.println("infra 24 " + command);
+        events.forEach(domainEvent -> System.out.println("infra 25" + domainEvent.getAggregateId()+ " " + domainEvent.getType() + " "+domainEvent.getInstant()+ " " + domainEvent.getId()));
         saveProgram(command.getProgramId(), events);
     }
 

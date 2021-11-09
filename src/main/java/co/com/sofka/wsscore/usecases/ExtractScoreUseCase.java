@@ -29,6 +29,7 @@ public class ExtractScoreUseCase implements Function<AssignScoreCommand, List<Do
 
     @Override
     public List<DomainEvent> apply(AssignScoreCommand command) {
+        System.out.println("usecase 3 "+command);
         processLogin.login();
         var program = Program.from(command.getProgramId(),
                 repository.getEventsBy("program", command.getProgramId())
@@ -46,6 +47,7 @@ public class ExtractScoreUseCase implements Function<AssignScoreCommand, List<Do
     }
 
     private Connection.Response getResponse(String path) throws IOException {
+        System.out.println("usecase 4 ");
         return Jsoup.connect(URL_BASE+"/reports/"+path)
                         .userAgent("Mozilla/5.0")
                         .timeout(10 * 1000)
@@ -56,6 +58,7 @@ public class ExtractScoreUseCase implements Function<AssignScoreCommand, List<Do
     }
 
     public static String html2text(String html) {
+        System.out.println("usecase 5");
         return Jsoup.parse(html).text();
     }
 }

@@ -27,6 +27,7 @@ public class QueryController {
                 .getCollection("program")
                 .find(Filters.eq("_id", programId))
                 .forEach(documentList::add);
+        System.out.println("infra 36");
         return Response.ok(documentList).build();
     }
 }

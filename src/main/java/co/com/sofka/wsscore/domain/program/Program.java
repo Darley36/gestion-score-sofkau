@@ -17,21 +17,25 @@ public class Program extends AggregateRoot implements EventChange {
 
     public Program(String programId, String name){
         super(programId);
+        System.out.println("domain 13");
         appendChange(new ProgramCreated(name)).apply();
     }
 
 
     public void addCourse(String courseId, String name, List<String> categories){
+        System.out.println("domain 14 ");
         appendChange(new CourseAssigned(courseId, name, categories)).apply();
     }
 
     public void assignScore(String user, String courseId, String category, String value, Date date){
+        System.out.println("domain 15");
         appendChange(new ScoreAssigned(user, courseId, category, value, date)).apply();
     }
 
 
     private Program(String id){
         super(id);
+        System.out.println("domain 16");
         subscribe(this);
         listener((ProgramCreated event)-> {
           this.name = event.getName();
@@ -53,6 +57,7 @@ public class Program extends AggregateRoot implements EventChange {
     }
 
     public static Program from(String id, List<DomainEvent> events){
+        System.out.println("domain 17 "+events);
         var program = new Program(id);
         events.forEach(program::applyEvent);
         return program;
@@ -63,14 +68,17 @@ public class Program extends AggregateRoot implements EventChange {
     }
 
     public Course getCoursesById(String courseId) {
+        System.out.println("domain 18 "+courseId);
         return courses.get(courseId);
     }
 
     public Score getScoreByCourseIdAndCategoryAndUser(String courseId, String category, String user){
+        System.out.println("domain 19 ");
         return this.scores.get(courseId+category+user);
     }
 
     public Map<String, Score> scores() {
+        System.out.println("domain 20");
         return scores;
     }
 }

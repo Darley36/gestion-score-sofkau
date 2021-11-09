@@ -20,6 +20,7 @@ public class AddCourseUseCase implements Function<AddCourseCommand, List<DomainE
 
     @Override
     public List<DomainEvent> apply(AddCourseCommand addCourseCommand) {
+        System.out.println("Usecase 1 "+ addCourseCommand);
         var program = Program.from(
                 addCourseCommand.getProgramId(), repository.getEventsBy("program", addCourseCommand.getProgramId())
         );

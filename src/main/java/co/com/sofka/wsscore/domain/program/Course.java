@@ -16,6 +16,7 @@ public class Course {
     }
 
     public void addCategory(String category){
+        System.out.println("domain 12 "+category);
         categories.add(category);
     }
 

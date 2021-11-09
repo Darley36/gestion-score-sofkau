@@ -18,6 +18,7 @@ public interface EventChange {
      * @param changeEvent the change event
      */
     default void listener(Consumer<? extends DomainEvent> changeEvent) {
+        System.out.println(" domain 8 "+changeEvent);
         behaviors.add((Consumer<? super DomainEvent>) changeEvent);
     }
 }

@@ -28,7 +28,7 @@ public class ProgramHandle {
         Map<String, Object> document = new HashMap<>();
         document.put("_id", event.getAggregateId());
         document.put("name", event.getName());
-
+        System.out.println("infra 29 " + document +" "+event.getName());
         mongoClient.getDatabase("queries")
                 .getCollection("program")
                 .insertOne(new Document(document));
@@ -38,7 +38,7 @@ public class ProgramHandle {
     void consumeProgramCreated(CourseAssigned event) {
         BasicDBObject document = new BasicDBObject();
         document.put("courses."+event.getCourseId()+".name", event.getName());
-
+        System.out.println("infra 30" + document);
         event.getCategories().forEach(category -> {
             var key = "courses."+event.getCourseId()+".categories."+Math.abs(category.hashCode());
             document.put(key+".name", category);
@@ -60,8 +60,9 @@ public class ProgramHandle {
         document.put(key+".scores."+Math.abs(event.getUser().hashCode())+".user", event.getUser());
         document.put(key+".scores."+Math.abs(event.getUser().hashCode())+".value", event.getValue());
         document.put(key+".scores."+Math.abs(event.getUser().hashCode())+".date", event.getDate());
-
+        System.out.println("infra 31 " + document);
         BasicDBObject updateObject = new BasicDBObject();
+        System.out.println("infra 32 " + updateObject);
         updateObject.put("$set", document);
 
         mongoClient.getDatabase("queries")

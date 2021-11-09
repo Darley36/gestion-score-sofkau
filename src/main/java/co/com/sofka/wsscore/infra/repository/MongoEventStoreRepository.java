@@ -20,13 +20,15 @@ public class MongoEventStoreRepository implements EventStoreRepository {
     private final MongoClient mongoClient;
 
     public MongoEventStoreRepository(MongoClient mongoClient){
-         this.mongoClient = mongoClient;
+        this.mongoClient = mongoClient;
     }
     @Override
     public List<DomainEvent> getEventsBy(String aggregateName, String aggregateRootId) {
         List<DomainEvent> events = new ArrayList<>();
+        events.forEach(domainEvent -> System.out.println("infra 33" + domainEvent.getType()));
+
         //TODO: ordenar por fecha
-         mongoClient.getDatabase("command")
+        mongoClient.getDatabase("command")
                 .getCollection(aggregateName)
                 .find(eq("aggregateId", aggregateRootId))
                 .map((Function<Document, DomainEvent>) document -> {
@@ -45,7 +47,7 @@ public class MongoEventStoreRepository implements EventStoreRepository {
     @Override
     public void saveEvent(String aggregateName, String aggregateRootId, StoredEvent storedEvent) {
         Map<String, Object> document = new HashMap<>();
-
+        System.out.println("infra 34");
         document.put("_id", UUID.randomUUID().toString());
         document.put("aggregateId", aggregateRootId);
         document.put("occurredOn", storedEvent.getOccurredOn());

@@ -28,6 +28,7 @@ public final class StoredEvent {
 
 
     public static StoredEvent wrapEvent(DomainEvent domainEvent) {
+        System.out.println("domain 9 "+domainEvent);
         return new StoredEvent(domainEvent.getClass().getCanonicalName(),
                 new Date(),
                 EventSerializer.instance().serialize(domainEvent)
@@ -66,6 +67,7 @@ public final class StoredEvent {
 
 
     public DomainEvent deserializeEvent() {
+        System.out.println("domain 10 ");
         try {
             return EventSerializer
                     .instance()
@@ -77,6 +79,7 @@ public final class StoredEvent {
 
     @Override
     public String toString() {
+        System.out.println("domain 11");
         return StoredEventSerializer.instance().serialize(this);
     }
 

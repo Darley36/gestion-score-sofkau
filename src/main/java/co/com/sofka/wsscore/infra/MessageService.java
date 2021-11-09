@@ -47,7 +47,9 @@ public class MessageService {
             @Override
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
                 var message = new String(body, StandardCharsets.UTF_8);
+                System.out.println("infra 35" + message);
                 try {
+
                     var event = EventSerializer.instance()
                             .deserialize(message, Class.forName(properties.getContentType()));
                     bus.publish(event.getType(), event);// emite localmente eventos
