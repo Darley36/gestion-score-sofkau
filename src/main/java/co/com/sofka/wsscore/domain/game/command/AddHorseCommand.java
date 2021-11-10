@@ -1,14 +1,14 @@
 package co.com.sofka.wsscore.domain.game.command;
 
+import co.com.sofka.wsscore.domain.game.Horse;
 import co.com.sofka.wsscore.domain.generic.Command;
 
 import java.util.List;
 
 public class AddHorseCommand extends Command {
     private String gameId;
-    private String horseId;
-    private String name;
-    private List<String> horses;
+
+    private List<Horse> horses;
 
     public AddHorseCommand() {
 
@@ -22,27 +22,15 @@ public class AddHorseCommand extends Command {
         this.gameId = gameId;
     }
 
-    public String getHorseId() {
-        return horseId;
-    }
 
-    public void setHorseId(String horseId) {
-        this.horseId = horseId;
-    }
 
-    public List<String> getHorses() {
+    public List<Horse> getHorses() {
         return horses;
     }
 
-    public void setHorses(List<String> horses) {
+    public void setHorses(List<Horse> horses) {
         this.horses = horses;
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 }

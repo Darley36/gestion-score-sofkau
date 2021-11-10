@@ -49,11 +49,11 @@ public class ProgramHandle {
     @ConsumeEvent(value = "sofkau.program.horseassigned", blocking = true)
     void consumeHorseAssigned(HorseAssigned event) {
         BasicDBObject document = new BasicDBObject();
-        document.put("horses."+event.getHorsesId()+".name",event.getName());
-        event.getHorses().forEach(horses -> {
-            var key = "horses."+event.getHorsesId()+".horses."+Math.abs(horses.hashCode());
-            document.put(key+".name", horses);
-        });
+        document.put("horses",event.getHorses());
+//        event.getHorses().forEach(horses -> {
+//            var key = "horses."+event.getCorrelationId()+".horses."+Math.abs(horses.hashCode());
+//            document.put(key+".name", horses);
+//        });
 
         BasicDBObject updateObject = new BasicDBObject();
         updateObject.put("$set", document);

@@ -5,40 +5,46 @@ import java.util.List;
 import java.util.Objects;
 
 public class Horse {
-    private final String id;
-    private final String name;
-    private final List<String> horses;
+    public void setColor(String color) {
+        this.color = color;
+    }
 
-    public Horse(String id, String name) {
-        this.id = id;
+    public void setName(String name) {
         this.name = name;
-        this.horses = new ArrayList<>();
     }
 
-    public String id() {
-        return id;
+    private  String color;
+    private  String name;
+
+    public Horse(){
+
     }
-    public String name() {
+    public Horse(String color, String name) {
+        this.color = color;
+        this.name = name;
+
+    }
+
+    public String getColor() {
+        return color;
+    }
+    public String getName() {
         return name;
     }
-    public  List<String> horses() {
-        return horses;
-    }
 
-    public void addHorse(String horse){
-        horses.add(horse);
-    }
+
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Horse horse = (Horse) o;
-        return Objects.equals(id, horse.id) && Objects.equals(name, horse.name);
+        return Objects.equals(color, horse.color) && Objects.equals(name, horse.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(color, name);
     }
 }

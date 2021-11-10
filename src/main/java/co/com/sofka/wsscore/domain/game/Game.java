@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Game extends AggregateRoot {
-    protected Map<String, Horse> horses;
+    protected List<Horse> horses;
     protected String name;
 
     public Game(String gameId, String name) {
@@ -34,7 +34,7 @@ public class Game extends AggregateRoot {
         return name;
     }
 
-    public void addHorse(String horsesId, String name,List<String> horses){
-        appendChange(new HorseAssigned(horsesId,name,horses)).apply();
+    public void addHorse(List<Horse> horses){
+        appendChange(new HorseAssigned(horses)).apply();
     }
 }

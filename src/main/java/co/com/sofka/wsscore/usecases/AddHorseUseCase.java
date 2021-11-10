@@ -21,9 +21,9 @@ public class AddHorseUseCase implements Function<AddHorseCommand, List<DomainEve
     @Override
     public List<DomainEvent> apply(AddHorseCommand command) {
         var events = repository.getEventsBy("program", command.getGameId());
-        var program = Game.from(command.getGameId(), events);
+        var game = Game.from(command.getGameId(), events);
 
-        program.addHorse(command.getHorseId(),command.getName(), command.getHorses());
-        return program.getUncommittedChanges();
+        game.addHorse(command.getHorses());
+        return game.getUncommittedChanges();
     }
 }

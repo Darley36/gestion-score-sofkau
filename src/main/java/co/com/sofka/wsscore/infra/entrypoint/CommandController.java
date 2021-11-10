@@ -57,7 +57,7 @@ public class CommandController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/game/addHorse")
     public Response executor(AddHorseCommand command) {
-        System.out.println("Entro al controller");
+        System.out.println(command.getHorses().get(0).getColor());
         bus.publish(command.getType(), command);
         return Response.ok().build();
     }
