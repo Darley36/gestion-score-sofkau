@@ -15,14 +15,24 @@ public class Horse {
 
     private  String color;
     private  String name;
+    private  int position;
 
     public Horse(){
 
     }
-    public Horse(String color, String name) {
+    public Horse(String color, String name, int position) {
         this.color = color;
         this.name = name;
+        this.position = position;
 
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
 
     public String getColor() {

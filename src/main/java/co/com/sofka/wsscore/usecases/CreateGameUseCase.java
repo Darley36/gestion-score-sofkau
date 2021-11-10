@@ -13,7 +13,7 @@ public class CreateGameUseCase implements Function<CreateGameCommand, List<Domai
 
     @Override
     public List<DomainEvent> apply(CreateGameCommand command){
-        var game = new Game(command.getGameId(), command.getName());
+        var game = new Game(command.getGameId(), command.getName(), false);
         return game.getUncommittedChanges();
     }
 }

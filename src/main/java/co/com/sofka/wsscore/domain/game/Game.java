@@ -13,11 +13,12 @@ public class Game extends AggregateRoot {
     protected List<Horse> horses;
     protected String name;
     protected Track track;
+    protected boolean state;
 
-    public Game(String gameId, String name) {
+    public Game(String gameId, String name, boolean state) {
         super(gameId);
         subscribe(new GameEventChange(this));
-        appendChange(new GameCreated(name)).apply();
+        appendChange(new GameCreated(name,state)).apply();
     }
 
     private Game(String id){
@@ -30,6 +31,10 @@ public class Game extends AggregateRoot {
         var game = new Game(id);
         events.forEach(game::applyEvent);
         return game;
+    }
+
+    public boolean state() {
+        return state;
     }
 
     public String name() {

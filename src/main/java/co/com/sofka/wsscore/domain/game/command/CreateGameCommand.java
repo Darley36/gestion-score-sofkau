@@ -6,6 +6,7 @@ public class CreateGameCommand extends Command {
 
     private String gameId;
     private String name;
+    private boolean state;
 
     public CreateGameCommand(){
 
@@ -25,5 +26,13 @@ public class CreateGameCommand extends Command {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isState() {
+        return state;
+    }
+
+    public void setState(boolean state) {
+        this.state = state;
     }
 }

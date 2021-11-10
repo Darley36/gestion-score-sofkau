@@ -43,6 +43,7 @@ public class ProgramHandle {
         Map<String, Object> document = new HashMap<>();
         document.put("_id", event.getAggregateId());
         document.put("name", event.getName());
+        document.put("state", event.isState());
         mongoClient.getDatabase("queries")
                 .getCollection("program")
                 .insertOne(new Document(document));

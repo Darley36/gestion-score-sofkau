@@ -14,6 +14,7 @@ public class GameEventChange implements EventChange {
         listener((GameCreated event)-> {
             game.name = event.getName();
             game.horses = new ArrayList<Horse>();
+            game.state = false;
         });
         listener((HorseAssigned event) -> {
             game.horses = event.getHorses();
