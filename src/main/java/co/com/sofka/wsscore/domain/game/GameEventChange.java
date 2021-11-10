@@ -1,5 +1,6 @@
 package co.com.sofka.wsscore.domain.game;
 
+import co.com.sofka.wsscore.domain.game.event.GameStarted;
 import co.com.sofka.wsscore.domain.game.event.HorseAssigned;
 import co.com.sofka.wsscore.domain.game.event.GameCreated;
 import co.com.sofka.wsscore.domain.game.event.TrackCreated;
@@ -22,6 +23,9 @@ public class GameEventChange implements EventChange {
         listener((TrackCreated event) ->{
             var track = new Track(event.getLength(), event.getNumberOfHorses(), event.getName());
             game.track = track;
+        });
+        listener((GameStarted event) -> {
+            game.state = true;
         });
     }
 }

@@ -4,6 +4,7 @@ package co.com.sofka.wsscore.infra.entrypoint;
 import co.com.sofka.wsscore.domain.game.command.AddHorseCommand;
 import co.com.sofka.wsscore.domain.game.command.CreateGameCommand;
 import co.com.sofka.wsscore.domain.game.command.CreateTrackCommand;
+import co.com.sofka.wsscore.domain.game.command.StartGameCommand;
 import co.com.sofka.wsscore.domain.program.command.AddCourseCommand;
 import co.com.sofka.wsscore.domain.program.command.AssignScoreCommand;
 import co.com.sofka.wsscore.domain.program.command.CreateProgramCommand;
@@ -67,6 +68,14 @@ public class CommandController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/game/createTrack")
     public Response executor(CreateTrackCommand command) {
+        bus.publish(command.getType(), command);
+        return Response.ok().build();
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/game/startGame")
+    public Response executor(StartGameCommand command) {
         bus.publish(command.getType(), command);
         return Response.ok().build();
     }

@@ -1,5 +1,6 @@
 package co.com.sofka.wsscore.domain.game;
 
+import co.com.sofka.wsscore.domain.game.event.GameStarted;
 import co.com.sofka.wsscore.domain.game.event.HorseAssigned;
 import co.com.sofka.wsscore.domain.game.event.GameCreated;
 import co.com.sofka.wsscore.domain.game.event.TrackCreated;
@@ -47,5 +48,9 @@ public class Game extends AggregateRoot {
 
     public void createTrack(int length, int numberOfHorses, String name){
         appendChange(new TrackCreated(length, numberOfHorses, name)).apply();
+    }
+
+    public void startGame() {
+        appendChange(new GameStarted()).apply();
     }
 }

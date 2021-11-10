@@ -1,6 +1,7 @@
 package co.com.sofka.wsscore.infra.materialize;
 
 import co.com.sofka.wsscore.domain.game.Track;
+import co.com.sofka.wsscore.domain.game.event.GameStarted;
 import co.com.sofka.wsscore.domain.game.event.HorseAssigned;
 import co.com.sofka.wsscore.domain.game.event.GameCreated;
 import co.com.sofka.wsscore.domain.game.event.TrackCreated;
@@ -57,6 +58,18 @@ public class ProgramHandle {
         /*mongoClient.getDatabase("queries")
                 .getCollection("program")
                 .insertOne(new Document(document));*/
+        BasicDBObject updateObject = new BasicDBObject();
+        updateObject.put("$set", document);
+
+        mongoClient.getDatabase("queries")
+                .getCollection("program")
+                .updateOne( Filters.eq("_id", event.getAggregateId()), updateObject);
+    }
+
+    @ConsumeEvent(value = "sofkau.program.gamestarted", blocking = true)
+    void consumeProgramCreated(GameStarted event) {
+        BasicDBObject document = new BasicDBObject();
+        document.put("state", true);
         BasicDBObject updateObject = new BasicDBObject();
         updateObject.put("$set", document);
 
