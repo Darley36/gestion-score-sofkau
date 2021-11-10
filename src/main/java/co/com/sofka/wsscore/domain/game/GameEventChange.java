@@ -2,6 +2,7 @@ package co.com.sofka.wsscore.domain.game;
 
 import co.com.sofka.wsscore.domain.game.event.HorseAssigned;
 import co.com.sofka.wsscore.domain.game.event.GameCreated;
+import co.com.sofka.wsscore.domain.game.event.TrackCreated;
 import co.com.sofka.wsscore.domain.generic.EventChange;
 
 import java.util.ArrayList;
@@ -15,8 +16,11 @@ public class GameEventChange implements EventChange {
             game.horses = new ArrayList<Horse>();
         });
         listener((HorseAssigned event) -> {
-
             game.horses = event.getHorses();
+        });
+        listener((TrackCreated event) ->{
+            var track = new Track(event.getLength(), event.getNumberOfHorses(), event.getName());
+            game.track = track;
         });
     }
 }

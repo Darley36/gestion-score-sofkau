@@ -2,15 +2,17 @@ package co.com.sofka.wsscore.domain.game;
 
 import co.com.sofka.wsscore.domain.game.event.HorseAssigned;
 import co.com.sofka.wsscore.domain.game.event.GameCreated;
+import co.com.sofka.wsscore.domain.game.event.TrackCreated;
 import co.com.sofka.wsscore.domain.generic.AggregateRoot;
 import co.com.sofka.wsscore.domain.generic.DomainEvent;
+import co.com.sofka.wsscore.domain.program.event.ScoreAssigned;
 
 import java.util.List;
-import java.util.Map;
 
 public class Game extends AggregateRoot {
     protected List<Horse> horses;
     protected String name;
+    protected Track track;
 
     public Game(String gameId, String name) {
         super(gameId);
@@ -36,5 +38,9 @@ public class Game extends AggregateRoot {
 
     public void addHorse(List<Horse> horses){
         appendChange(new HorseAssigned(horses)).apply();
+    }
+
+    public void createTrack(int length, int numberOfHorses, String name){
+        appendChange(new TrackCreated(length, numberOfHorses, name)).apply();
     }
 }

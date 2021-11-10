@@ -14,9 +14,6 @@ public class HorseAssigned extends DomainEvent {
 
     public HorseAssigned(List<Horse> horses) {
         super("sofkau.program.horseassigned");
-
-
-
         this.horses = horses;
     }
 
