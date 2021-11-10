@@ -1,7 +1,7 @@
 package co.com.sofka.wsscore.infra.materialize;
 
 import co.com.sofka.wsscore.domain.game.event.HorseAssigned;
-import co.com.sofka.wsscore.domain.game.event.TrackCreated;
+import co.com.sofka.wsscore.domain.game.event.GameCreated;
 import co.com.sofka.wsscore.domain.program.event.CourseAssigned;
 import co.com.sofka.wsscore.domain.program.event.ProgramCreated;
 import co.com.sofka.wsscore.domain.program.event.ScoreAssigned;
@@ -36,8 +36,8 @@ public class ProgramHandle {
                 .insertOne(new Document(document));
     }
 
-    @ConsumeEvent(value = "sofkau.program.trackcreated", blocking = true)
-    void consumeProgramCreated(TrackCreated event) {
+    @ConsumeEvent(value = "sofkau.program.gamecreated", blocking = true)
+    void consumeProgramCreated(GameCreated event) {
         Map<String, Object> document = new HashMap<>();
         document.put("_id", event.getAggregateId());
         document.put("name", event.getName());

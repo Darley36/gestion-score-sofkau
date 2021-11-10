@@ -2,21 +2,21 @@ package co.com.sofka.wsscore.domain.game.command;
 
 import co.com.sofka.wsscore.domain.generic.Command;
 
-public class CreateTrackCommand extends Command {
+public class CreateGameCommand extends Command {
 
-    private String trackId;
+    private String gameId;
     private String name;
 
-    public CreateTrackCommand(){
+    public CreateGameCommand(){
 
     }
 
-    public String getTrackId() {
-        return trackId;
+    public String getGameId() {
+        return gameId;
     }
 
-    public void setTrackId(String trackId) {
-        this.trackId = trackId;
+    public void setGameId(String gameId) {
+        this.gameId = gameId;
     }
 
     public String getName() {

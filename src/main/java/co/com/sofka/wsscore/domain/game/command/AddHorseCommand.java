@@ -5,7 +5,7 @@ import co.com.sofka.wsscore.domain.generic.Command;
 import java.util.List;
 
 public class AddHorseCommand extends Command {
-    private String trackId;
+    private String gameId;
     private String horseId;
     private String name;
     private List<String> horses;
@@ -14,12 +14,12 @@ public class AddHorseCommand extends Command {
 
     }
 
-    public String getTrackId() {
-        return trackId;
+    public String getGameId() {
+        return gameId;
     }
 
-    public void setTrackId(String trackId) {
-        this.trackId = trackId;
+    public void setGameId(String gameId) {
+        this.gameId = gameId;
     }
 
     public String getHorseId() {

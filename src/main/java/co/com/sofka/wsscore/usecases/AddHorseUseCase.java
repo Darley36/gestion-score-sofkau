@@ -1,6 +1,6 @@
 package co.com.sofka.wsscore.usecases;
 
-import co.com.sofka.wsscore.domain.game.Track;
+import co.com.sofka.wsscore.domain.game.Game;
 import co.com.sofka.wsscore.domain.game.command.AddHorseCommand;
 import co.com.sofka.wsscore.domain.generic.DomainEvent;
 import co.com.sofka.wsscore.domain.generic.EventStoreRepository;
@@ -20,8 +20,8 @@ public class AddHorseUseCase implements Function<AddHorseCommand, List<DomainEve
 
     @Override
     public List<DomainEvent> apply(AddHorseCommand command) {
-        var events = repository.getEventsBy("program", command.getTrackId());
-        var program = Track.from(command.getTrackId(), events);
+        var events = repository.getEventsBy("program", command.getGameId());
+        var program = Game.from(command.getGameId(), events);
 
         program.addHorse(command.getHorseId(),command.getName(), command.getHorses());
         return program.getUncommittedChanges();
