@@ -27,5 +27,8 @@ public class GameEventChange implements EventChange {
         listener((GameStarted event) -> {
             game.state = true;
         });
+        listener((GameStarted event) -> {
+
+        });
     }
 }

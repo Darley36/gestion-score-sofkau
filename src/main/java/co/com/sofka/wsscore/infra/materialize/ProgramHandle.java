@@ -1,10 +1,7 @@
 package co.com.sofka.wsscore.infra.materialize;
 
 import co.com.sofka.wsscore.domain.game.Track;
-import co.com.sofka.wsscore.domain.game.event.GameStarted;
-import co.com.sofka.wsscore.domain.game.event.HorseAssigned;
-import co.com.sofka.wsscore.domain.game.event.GameCreated;
-import co.com.sofka.wsscore.domain.game.event.TrackCreated;
+import co.com.sofka.wsscore.domain.game.event.*;
 import co.com.sofka.wsscore.domain.program.event.CourseAssigned;
 import co.com.sofka.wsscore.domain.program.event.ProgramCreated;
 import co.com.sofka.wsscore.domain.program.event.ScoreAssigned;
@@ -73,6 +70,18 @@ public class ProgramHandle {
         BasicDBObject updateObject = new BasicDBObject();
         updateObject.put("$set", document);
 
+        mongoClient.getDatabase("queries")
+                .getCollection("program")
+                .updateOne( Filters.eq("_id", event.getAggregateId()), updateObject);
+    }
+
+    //Evento sin logica
+    @ConsumeEvent(value = "sofkau.program.positionchanged", blocking = true)
+    void consumeHorseAssigned(PositionChanged event) {
+        BasicDBObject document = new BasicDBObject();
+        document.put("horses", null);
+        BasicDBObject updateObject = new BasicDBObject();
+        updateObject.put("$set", document);
         mongoClient.getDatabase("queries")
                 .getCollection("program")
                 .updateOne( Filters.eq("_id", event.getAggregateId()), updateObject);
